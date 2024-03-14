@@ -1,0 +1,3 @@
+[submodule "fase5-ms-pedido"]
+	path = fase5-ms-pedido
+	url = https://github.com/soat1-grupo18/fase5-ms-pedido.git

@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "127.0.0.1:4566:4566"
+    environment:
+      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+      - SERVICES=sqs,sns,dynamodb
+      - SQS_ENDPOINT_STRATEGY=off
+      - LOCALSTACK_HOST=localstack:4566
+      - DEBUG=${DEBUG:-0}
+    volumes:
+      - "./localstack:/etc/localstack/init/ready.d:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  pagamento-db:
+    image: public.ecr.aws/aws-dynamodb-local/aws-dynamodb-local:latest
+    restart: always
+
+  ms-pagamento:
+    build:
+      context: ./fase5-ms-pedido
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8083:8080"
+    depends_on:
+      - pagamento-db
+    environment:
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY=localstack
+      - AWS_SECRET_KEY=localstack
+      - AWS_DYNAMODB_ENDPOINT=pagamento-db
