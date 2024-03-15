@@ -20,6 +20,12 @@ set -ev
     && mvn clean package -DskipTests
 )
 
+(
+    cd fase5-ms-producao \
+    && git pull origin main \
+    && mvn clean package -DskipTests
+)
+
 docker compose -f docker-compose.yml up -d \
     --force-recreate \
     --renew-anon-volumes \

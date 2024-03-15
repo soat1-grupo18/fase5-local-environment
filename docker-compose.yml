@@ -59,6 +59,32 @@ services:
       - AWS_SQS_ENDPOINT=http://localstack:4566
       - SERVER_PORT=8000
 
+  db-producao:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=producao_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  ms-producao:
+    build:
+      context: ./fase5-ms-producao
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8082:8080"
+    depends_on:
+      - localstack
+    environment:
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY=localstack
+      - AWS_SECRET_KEY=localstack
+      - AWS_SQS_ENDPOINT=http://localstack:4566
+      - SERVER_PORT=8000
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-producao:5432/producao_db
+      - QUEUE_PAGAMENTO_APROVADO=http://localstack:4566/000000000000/ms-producao-evento-pagamento-aprovado
+      - QUEUE_PAGAMENTO_RECUSADO=http://localstack:4566/000000000000/ms-producao-evento-pagamento-recusado
+
   db-cliente:
     image: postgres:15
     environment:

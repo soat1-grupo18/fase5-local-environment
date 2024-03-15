@@ -7,3 +7,6 @@
 [submodule "fase5-ms-cliente"]
 	path = fase5-ms-cliente
 	url = https://github.com/soat1-grupo18/fase5-ms-cliente.git
+[submodule "fase5-ms-producao"]
+	path = fase5-ms-producao
+	url = https://github.com/soat1-grupo18/fase5-ms-producao.git
