@@ -57,7 +57,7 @@ services:
       - AWS_DYNAMODB_ENDPOINT=http://localstack:4566
       - AWS_SNS_ENDPOINT=http://localstack:4566
       - AWS_SQS_ENDPOINT=http://localstack:4566
-      - SERVER_PORT=8000
+      - SERVER_PORT=8080
 
   db-producao:
     image: postgres:15
@@ -80,7 +80,7 @@ services:
       - AWS_ACCESS_KEY=localstack
       - AWS_SECRET_KEY=localstack
       - AWS_SQS_ENDPOINT=http://localstack:4566
-      - SERVER_PORT=8000
+      - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-producao:5432/producao_db
       - QUEUE_PAGAMENTO_APROVADO=http://localstack:4566/000000000000/ms-producao-evento-pagamento-aprovado
       - QUEUE_PAGAMENTO_RECUSADO=http://localstack:4566/000000000000/ms-producao-evento-pagamento-recusado
@@ -106,7 +106,7 @@ services:
       - AWS_ACCESS_KEY=localstack
       - AWS_SECRET_KEY=localstack
       - AWS_SQS_ENDPOINT=http://localstack:4566
-      - SERVER_PORT=8000
+      - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-cliente:5432/cliente_db
       - QUEUE_PAGAMENTO_APROVADO=http://localstack:4566/000000000000/ms-cliente-evento-pagamento-aprovado
       - QUEUE_PAGAMENTO_RECUSADO=http://localstack:4566/000000000000/ms-cliente-evento-pagamento-recusado
