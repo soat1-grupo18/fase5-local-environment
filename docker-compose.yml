@@ -57,3 +57,27 @@ services:
       - AWS_SNS_ENDPOINT=http://localstack:4566
       - AWS_SQS_ENDPOINT=http://localstack:4566
       - SERVER_PORT=8000
+
+  db-cliente:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=cliente_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  ms-cliente:
+    build:
+      context: ./fase5-ms-cliente
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8083:8080"
+    depends_on:
+      - localstack
+    environment:
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY=localstack
+      - AWS_SECRET_KEY=localstack
+      - AWS_SQS_ENDPOINT=http://localstack:4566
+      - SERVER_PORT=8000
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-cliente:5432/cliente_db

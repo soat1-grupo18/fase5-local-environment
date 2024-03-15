@@ -4,3 +4,6 @@
 [submodule "fase5-ms-pagamento"]
 	path = fase5-ms-pagamento
 	url = https://github.com/soat1-grupo18/fase5-ms-pagamento.git
+[submodule "fase5-ms-cliente"]
+	path = fase5-ms-cliente
+	url = https://github.com/soat1-grupo18/fase5-ms-cliente.git

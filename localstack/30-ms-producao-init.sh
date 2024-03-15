@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -v
 
 awslocal sqs create-queue \
   --queue-name ms-producao-evento-pedido-recebido-dlq

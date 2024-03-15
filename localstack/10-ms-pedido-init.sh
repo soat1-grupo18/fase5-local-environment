@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ev
+set -v
 
 awslocal sns create-topic \
   --name ms-pedido
