@@ -39,6 +39,7 @@ services:
       - AWS_SNS_ENDPOINT=http://localstack:4566
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-pedido:5432/pedido_db
+      - QUEUE_PEDIDO_RECEBIDO=http://localstack:4566/000000000000/ms-pagamento-evento-pedido-recebido
 
   ms-pagamento:
     build:
@@ -81,3 +82,5 @@ services:
       - AWS_SQS_ENDPOINT=http://localstack:4566
       - SERVER_PORT=8000
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-cliente:5432/cliente_db
+      - QUEUE_PAGAMENTO_APROVADO=http://localstack:4566/000000000000/ms-cliente-evento-pagamento-aprovado
+      - QUEUE_PAGAMENTO_RECUSADO=http://localstack:4566/000000000000/ms-cliente-evento-pagamento-recusado
