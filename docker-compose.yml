@@ -15,11 +15,15 @@ services:
       - "./localstack:/etc/localstack/init/ready.d:ro"
       - "/var/run/docker.sock:/var/run/docker.sock"
 
-  pagamento-db:
-    image: public.ecr.aws/aws-dynamodb-local/aws-dynamodb-local:latest
+  db-pedido:
+    image: postgres:15
     restart: always
+    environment:
+      - POSTGRES_DB=pedido_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
 
-  ms-pagamento:
+  ms-pedido:
     build:
       context: ./fase5-ms-pedido
       dockerfile: Dockerfile
@@ -27,9 +31,12 @@ services:
     ports:
       - "8083:8080"
     depends_on:
-      - pagamento-db
+      - localstack
+      - db-pedido
     environment:
       - AWS_REGION=us-east-1
       - AWS_ACCESS_KEY=localstack
       - AWS_SECRET_KEY=localstack
-      - AWS_DYNAMODB_ENDPOINT=pagamento-db
+      - AWS_SNS_ENDPOINT=http://localstack:4566
+      - SERVER_PORT=8080
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-pedido:5432/pedido_db
