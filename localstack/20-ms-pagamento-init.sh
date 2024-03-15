@@ -2,6 +2,11 @@
 
 set -ev
 
+awslocal dynamodb create-table \
+  --table-name Pagamentos \
+  --attribute-definitions '[ { "AttributeName": "id", "AttributeType": "S" }]' \
+  --key-schema '[ { "AttributeName": "id", "KeyType": "HASH" }]'
+
 awslocal sns create-topic \
   --name ms-pagamento
 

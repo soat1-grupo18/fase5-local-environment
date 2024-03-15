@@ -17,7 +17,6 @@ services:
 
   db-pedido:
     image: postgres:15
-    restart: always
     environment:
       - POSTGRES_DB=pedido_db
       - POSTGRES_USER=postgres
@@ -29,7 +28,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "8083:8080"
+      - "8080:8080"
     depends_on:
       - localstack
       - db-pedido
@@ -40,3 +39,21 @@ services:
       - AWS_SNS_ENDPOINT=http://localstack:4566
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-pedido:5432/pedido_db
+
+  ms-pagamento:
+    build:
+      context: ./fase5-ms-pagamento
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - localstack
+    environment:
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY=localstack
+      - AWS_SECRET_KEY=localstack
+      - AWS_DYNAMODB_ENDPOINT=http://localstack:4566
+      - AWS_SNS_ENDPOINT=http://localstack:4566
+      - AWS_SQS_ENDPOINT=http://localstack:4566
+      - SERVER_PORT=8000
