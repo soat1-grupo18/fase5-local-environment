@@ -39,7 +39,7 @@ services:
       - AWS_SNS_ENDPOINT=http://localstack:4566
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-pedido:5432/pedido_db
-      - QUEUE_PEDIDO_RECEBIDO=http://localstack:4566/000000000000/ms-pagamento-evento-pedido-recebido
+      - TOPIC_PEDIDO=arn:aws:sns:us-east-1:000000000000:ms-pedido
 
   ms-pagamento:
     build:
@@ -58,6 +58,9 @@ services:
       - AWS_SNS_ENDPOINT=http://localstack:4566
       - AWS_SQS_ENDPOINT=http://localstack:4566
       - SERVER_PORT=8080
+      - TOPIC_PAGAMENTO=arn:aws:sns:us-east-1:000000000000:ms-pagamento
+      - QUEUE_PEDIDO_RECEBIDO=http://localstack:4566/000000000000/ms-producao-evento-pedido-recebido
+      - SPRING_DATA_DYNAMODB_ENTITY2DDL_AUTO=none
 
   db-producao:
     image: postgres:15
