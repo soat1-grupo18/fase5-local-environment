@@ -82,6 +82,7 @@ services:
       - AWS_SQS_ENDPOINT=http://localstack:4566
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-producao:5432/producao_db
+      - QUEUE_PEDIDO_RECEBIDO=http://localstack:4566/000000000000/ms-producao-evento-pedido-recebido
       - QUEUE_PAGAMENTO_APROVADO=http://localstack:4566/000000000000/ms-producao-evento-pagamento-aprovado
       - QUEUE_PAGAMENTO_RECUSADO=http://localstack:4566/000000000000/ms-producao-evento-pagamento-recusado
 
